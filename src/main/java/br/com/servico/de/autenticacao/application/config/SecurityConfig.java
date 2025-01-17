@@ -1,6 +1,7 @@
 package br.com.servico.de.autenticacao.application.config;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +18,9 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
 public class SecurityConfig {
+
+    @Value("${spring.security.oauth2.client.provider.auth0.issuer-uri}")
+    private String issuerUri;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -48,7 +52,7 @@ public class SecurityConfig {
     @Bean
     public JwtDecoder jwtDecoder() {
         // Configura o decodificador de JWT para validar os tokens emitidos pelo Auth0
-        return JwtDecoders.fromIssuerLocation("https://SEU_AUTH0_DOMAIN/");
+        return JwtDecoders.fromIssuerLocation(issuerUri);
     }
 
     @Bean
