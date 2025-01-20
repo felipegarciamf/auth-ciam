@@ -7,6 +7,14 @@ import jakarta.persistence.*;
 @Entity
 public class AuthUser {
 
+    public AuthUser(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
+
+    public AuthUser() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
